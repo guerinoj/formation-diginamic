@@ -9,7 +9,7 @@ fetch('https://jsonplaceholder.typicode.com/users')
 function displayUsers(users) {
   const div = document.querySelector("#users")
 
-  let html = `<table class="table table-striped">
+  let html = `<table class="table table-striped table-hover">
                 <thead>
                   <tr>`
                 html += displayHeaders(users[0])         
@@ -36,8 +36,26 @@ function displayUsers(users) {
 function displayUser(user) {
   let html = '<tr>'
 
-  for(const key in user){
-    html += `<td>${user[key]}</td>`
+  //Affiche le contenu d'une cellule
+  for(const prop in user){
+
+    //Si l'objet contient un objet
+    if(user[prop] instanceof Object){
+      let ob = user[prop]
+      html += "<td>"
+
+      //On affiche chaque élement du sous objet
+      for(const prop in ob)
+      {
+        html += ob[prop] + " "
+      }
+      html += "</td>"
+
+    }else{
+      html += `<td>${user[prop]}</td>`
+    }
+
+    
   }
 
   html +="</tr>"
